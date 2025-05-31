@@ -20,7 +20,7 @@ export const metadata = {
     siteName: "Persona",
     images: [
       {
-        url: `${defaultUrl}/og.png`,
+        url: `${defaultUrl}/opengraph-image.png`,
         width: 1200,
         height: 630,
         alt: "Persona",
