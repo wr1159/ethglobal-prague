@@ -11,8 +11,7 @@ const defaultUrl = process.env.VERCEL_URL
 
 export const metadata: Metadata = {
   metadataBase: new URL(defaultUrl),
-  title: "Persona",
-  description: "Persona - Ready to show your True Identity?",
+
   openGraph: {
     title: "Persona",
     description: "Persona - Ready to show your True Identity?",
