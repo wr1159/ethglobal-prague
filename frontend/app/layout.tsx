@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Oxanium } from "next/font/google";
 import Providers from "@/components/provider";
 import "./globals.css";
+import { ThemeSwitcher } from "@/components/theme-switcher";
 
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
@@ -27,7 +28,10 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${oxanium.className} antialiased`}>
-        <Providers>{children}</Providers>
+        <Providers>
+          {children}
+          <ThemeSwitcher />
+        </Providers>
       </body>
     </html>
   );
