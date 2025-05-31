@@ -33,15 +33,15 @@ const badges: Badge[] = [
     requirement: "VERIFIED VIA BLOCKSCOUT",
   },
   {
-    emoji: "🦄",
-    title: "DeFi Pioneer",
-    description: "Significant UNI holdings",
+    emoji: "🥶",
+    title: "Has ETH",
+    description: "Holds >0 ETH",
     requirement: "VERIFIED VIA BLOCKSCOUT",
   },
   {
-    emoji: "🚀",
-    title: "Power User",
-    description: "1000+ transactions",
+    emoji: "🐧",
+    title: "OG Pudgy Minter",
+    description: "Minted a Pudgy",
     requirement: "VERIFIED VIA BLOCKSCOUT",
   },
 ];
