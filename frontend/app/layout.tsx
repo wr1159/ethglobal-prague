@@ -9,7 +9,7 @@ const defaultUrl = process.env.VERCEL_URL
   ? "https://persona-prague.vercel.app"
   : "http://localhost:3000";
 
-export const metadata = {
+export const metadata: Metadata = {
   metadataBase: new URL(defaultUrl),
   title: "Persona",
   description: "Persona - Ready to show your True Identity?",
