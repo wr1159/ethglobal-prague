@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { Oxanium } from "next/font/google";
 import Providers from "@/components/provider";
 import "./globals.css";
-import { ThemeSwitcher } from "@/components/theme-switcher";
+import { Footer } from "@/components/footer";
+import { Navbar } from "@/components/navbar";
 
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
@@ -10,8 +11,8 @@ const defaultUrl = process.env.VERCEL_URL
 
 export const metadata: Metadata = {
   metadataBase: new URL(defaultUrl),
-  title: "Next.js and Supabase Starter Kit",
-  description: "The fastest way to build apps with Next.js and Supabase",
+  title: "Persona",
+  description: "Persona - Your digital identity on the blockchain",
 };
 
 const oxanium = Oxanium({
@@ -29,8 +30,9 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={`${oxanium.className} antialiased`}>
         <Providers>
+          <Navbar />
           {children}
-          <ThemeSwitcher />
+          <Footer />
         </Providers>
       </body>
     </html>
