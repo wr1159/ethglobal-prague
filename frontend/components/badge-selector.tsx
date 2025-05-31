@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { getAddressSummary } from "@/lib/blockscout";
 import { createClient } from "@/lib/supabase/client";
+import { toast } from "sonner";
 
 interface AddressSummary {
   netWorth: {
@@ -112,7 +113,6 @@ export function BadgeSelector() {
   );
   const [selectedBadges, setSelectedBadges] = useState<Set<string>>(new Set());
   const [obtainingBadges, setObtainingBadges] = useState(false);
-  const [message, setMessage] = useState<string>("");
 
   const walletAddress = user?.wallet?.address;
   const twitterUsername = user?.twitter?.username;
@@ -136,7 +136,7 @@ export function BadgeSelector() {
       setBadgeEligibility(eligibilityResults);
     } catch (error) {
       console.error("Error checking badge eligibility:", error);
-      setMessage("Failed to analyze wallet. Please try again.");
+      toast("Failed to analyze wallet. Please try again.");
     } finally {
       setAnalyzing(false);
       setLoading(false);
@@ -211,7 +211,7 @@ export function BadgeSelector() {
         .filter(Boolean);
 
       if (badgesToInsert.length === 0) {
-        setMessage("No new badges to obtain");
+        toast("No new badges to obtain");
         return;
       }
 
@@ -219,12 +219,12 @@ export function BadgeSelector() {
 
       if (error) throw error;
 
-      setMessage(`Successfully obtained ${badgesToInsert.length} badge(s)!`);
+      toast(`Successfully obtained ${badgesToInsert.length} badge(s)!`);
       setSelectedBadges(new Set());
       loadObtainedBadges(); // Refresh obtained badges
     } catch (error) {
       console.error("Error obtaining badges:", error);
-      setMessage("Failed to obtain badges. Please try again.");
+      toast("Failed to obtain badges. Please try again.");
     } finally {
       setObtainingBadges(false);
     }
@@ -265,20 +265,6 @@ export function BadgeSelector() {
 
   return (
     <div className="space-y-6">
-      {message && (
-        <div className="p-4 bg-muted rounded-lg">
-          <p className="text-sm">{message}</p>
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => setMessage("")}
-            className="mt-2"
-          >
-            Dismiss
-          </Button>
-        </div>
-      )}
-
       <Card>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">

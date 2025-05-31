@@ -4,6 +4,7 @@ import Providers from "@/components/provider";
 import "./globals.css";
 import { Footer } from "@/components/footer";
 import { Navbar } from "@/components/navbar";
+import { Toaster } from "sonner";
 
 const defaultUrl = process.env.VERCEL_URL
   ? "https://persona-prague.vercel.app"
@@ -47,6 +48,7 @@ export default function RootLayout({
           <Navbar />
           {children}
           <Footer />
+          <Toaster />
         </Providers>
       </body>
     </html>
