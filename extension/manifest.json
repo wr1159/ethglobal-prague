@@ -8,6 +8,7 @@
     "activeTab"
   ],
   "host_permissions": [
+    "*://persona-prague.vercel.app/*",
     "*://x.com/*"
   ],
 

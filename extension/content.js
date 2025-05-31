@@ -1,22 +1,22 @@
 (function () {
-  const linkedAccounts = {
-    elonmusk: {
-      badge: "🚀",
-      color: "#1DA1F2",
-      extraBadges: [
-        { icon: "🛰️", label: "Starlink Supporter" },
-        { icon: "🔋", label: "Tesla CEO" }
-      ]
-    },
-    jack: {
-      badge: "👨‍💻",
-      color: "#000000",
-      extraBadges: [
-        { icon: "💸", label: "Block Founder" },
-        { icon: "🌱", label: "Bluesky Backer" }
-      ]
-    }
-  };
+  let apiBadges = [];
+
+  // Fetch badge data from the API
+  fetchBadgesFromBackground().then(data => {
+    apiBadges = data;
+    // After fetching, try to add badges in case hover cards are already present
+    addBadgeToHoverCard();
+  });
+
+  function getBadgeForUsername(username) {
+    // API usernames are lowercase
+    return apiBadges.find(b => b.username.toLowerCase() === username.toLowerCase());
+  }
+
+  function getAllBadgesForUsername(username) {
+    // API usernames are lowercase
+    return apiBadges.filter(b => b.username.toLowerCase() === username.toLowerCase());
+  }
 
   function addBadgeToHoverCard() {
     const dialogs = document.querySelectorAll([
@@ -46,7 +46,7 @@
           const href = usernameElement.getAttribute("href");
           if (href) {
             const username = href.slice(1).toLowerCase();
-            if (linkedAccounts[username]) {
+            if (getBadgeForUsername(username)) {
               addBadgeToElement(usernameElement, username);
             }
           }
@@ -61,7 +61,7 @@
       if (!href) return;
 
       const username = href.slice(1).toLowerCase();
-      if (linkedAccounts[username]) {
+      if (getBadgeForUsername(username)) {
         addBadgeToElement(usernameElement, username);
       }
 
@@ -71,6 +71,9 @@
 
   function addBadgeToElement(element, username) {
     if (element.parentElement.querySelector('.linked-account-badge')) return;
+
+    const badges = getAllBadgesForUsername(username);
+    if (!badges.length) return;
 
     const badgeWrapper = document.createElement("span");
     badgeWrapper.style.cssText = `
@@ -85,7 +88,7 @@
       line-height: 1;
     `;
 
-    // Create a clickable badge link
+    // Create a clickable badge link (still just one badge shown)
     const badgeLink = document.createElement('a');
     badgeLink.href = 'https://persona-prague.vercel.app/';
     badgeLink.target = '_blank';
@@ -94,10 +97,6 @@
     badgeLink.style.display = 'inline-flex';
     badgeLink.style.alignItems = 'center';
     badgeLink.style.cursor = 'pointer';
-
-    // Use the 🎭 emoji for the badge
-    badgeLink.textContent = '🎭';
-    badgeLink.className = "linked-account-badge";
     badgeLink.style.border = '1.5px solid #888';
     badgeLink.style.borderRadius = '12px';
     badgeLink.style.background = 'rgba(0,0,0,0.05)';
@@ -106,15 +105,19 @@
     badgeLink.style.margin = '0 2px';
     badgeLink.style.boxShadow = '0 1px 4px rgba(0,0,0,0.07)';
 
-    // Show custom card on hover
+    // Always use the 🎭 emoji for the badge
+    badgeLink.textContent = '🎭';
+    badgeLink.className = "linked-account-badge";
+
+    // Show custom card on hover, with ALL API descriptions as content
     badgeLink.addEventListener('mouseenter', function (e) {
-      showCustomCard(badgeLink, username);
+      showCustomCardWithDescriptions(badgeLink, badges.map(b => b.description));
     });
     badgeLink.addEventListener('mouseleave', function (e) {
       hideCustomCard();
     });
     badgeLink.addEventListener('touchstart', function (e) {
-      showCustomCard(badgeLink, username);
+      showCustomCardWithDescriptions(badgeLink, badges.map(b => b.description));
     });
     badgeLink.addEventListener('touchend', function (e) {
       hideCustomCard();
@@ -148,11 +151,9 @@
   let lastBadge = null;
   let lastCard = null;
 
-  function showCustomCard(badge, username) {
+  // Show custom card with ALL API descriptions
+  function showCustomCardWithDescriptions(badge, descriptions) {
     hideCustomCard(); // Remove any existing card
-    lastBadge = badge;
-    const info = linkedAccounts[username];
-    if (!info || !info.extraBadges) return;
     const card = document.createElement('div');
     card.className = 'linked-account-custom-card';
     card.style.cssText = `
@@ -165,7 +166,7 @@
       min-width: 180px;
       z-index: 2147483647;
       font-size: 15px;
-      font-family: inherit;
+      font-family: Arial, sans-serif;
       display: flex;
       flex-direction: column;
       gap: 8px;
@@ -175,16 +176,25 @@
       pointer-events: auto;
       cursor: pointer;
     `;
-    info.extraBadges.forEach(b => {
-      const badgeRow = document.createElement('div');
-      badgeRow.style.display = 'flex';
-      badgeRow.style.alignItems = 'center';
-      badgeRow.style.gap = '8px';
-      badgeRow.innerHTML = `<span style="font-size:1.2em;">${b.icon}</span> <span>${b.label}</span>`;
-      card.appendChild(badgeRow);
+    // Add header
+    const header = document.createElement('div');
+    header.textContent = 'Persona traits';
+    header.style.color = '#84b9f4';
+    header.style.fontWeight = 'bold';
+    header.style.fontSize = '18px';
+    header.style.marginBottom = '8px';
+    header.style.letterSpacing = '0.5px';
+    card.appendChild(header);
+    // Add all descriptions as a list
+    descriptions.forEach(desc => {
+      const row = document.createElement('div');
+      row.textContent = desc;
+      row.style.color = '#ecd8ec';
+      row.style.fontSize = '15px';
+      row.style.margin = '2px 0';
+      card.appendChild(row);
     });
     document.body.appendChild(card);
-    lastCard = card;
     // Position card near the badge
     const rect = badge.getBoundingClientRect();
     const cardRect = card.getBoundingClientRect();
@@ -241,3 +251,15 @@
     setInterval(addBadgeToHoverCard, 1000);
   }
 })();
+
+function fetchBadgesFromBackground() {
+  return new Promise((resolve, reject) => {
+    chrome.runtime.sendMessage({ type: 'FETCH_BADGES' }, response => {
+      if (response && response.badges) {
+        resolve(response.badges);
+      } else {
+        reject(response && response.error ? response.error : 'Unknown error');
+      }
+    });
+  });
+}
