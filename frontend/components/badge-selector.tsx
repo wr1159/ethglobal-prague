@@ -8,6 +8,9 @@ import { Badge } from "@/components/ui/badge";
 import { getAddressSummary } from "@/lib/blockscout";
 import { createClient } from "@/lib/supabase/client";
 import { toast } from "sonner";
+import { useWriteContract } from "wagmi";
+import { erc721Abi } from "@/src/generated";
+import { personaBadgeAddress } from "@/lib/config";
 
 interface AddressSummary {
   netWorth: {
@@ -114,6 +117,8 @@ export function BadgeSelector() {
   const [selectedBadges, setSelectedBadges] = useState<Set<string>>(new Set());
   const [obtainingBadges, setObtainingBadges] = useState(false);
 
+  const { writeContract } = useWriteContract();
+
   const walletAddress = user?.wallet?.address;
   const twitterUsername = user?.twitter?.username;
 
@@ -195,6 +200,13 @@ export function BadgeSelector() {
 
     setObtainingBadges(true);
     try {
+      const randomId = Math.floor(Math.random() * 10000);
+      await writeContract({
+        address: personaBadgeAddress,
+        abi: erc721Abi,
+        functionName: "mint",
+        args: [walletAddress as `0x${string}`, BigInt(randomId)],
+      });
       const supabase = createClient();
       const badgesToInsert = Array.from(selectedBadges)
         .map((badgeId) => {
@@ -292,8 +304,8 @@ export function BadgeSelector() {
                     isSelected
                       ? "ring-2 ring-primary border-primary"
                       : isDisabled
-                      ? "opacity-50 cursor-not-allowed"
-                      : "hover:shadow-md"
+                        ? "opacity-50 cursor-not-allowed"
+                        : "hover:shadow-md"
                   }`}
                   onClick={() => !isDisabled && toggleBadgeSelection(badge.id)}
                 >
@@ -362,7 +374,7 @@ export function BadgeSelector() {
       {/* Analysis Summary */}
       <Card>
         <CardHeader>
-          <CardTitle>📊 Wallet Analysis</CardTitle>
+          <CardTitle>📊 Wallet Analysis (Powered by Blockscout)</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid md:grid-cols-2 gap-4 text-sm">
