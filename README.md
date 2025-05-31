@@ -2,6 +2,8 @@
 
 _An ETHGlobal Prague 2025 hackathon project_
 
+Applied Prizes: Blockscout (Use of API), Vlayer (Time Travel) and Finalist
+
 Persona lets anyone **prove on Twitter their on-chain activity**.  
 Users link a wallet and Twitter account once, pick which on-chain facts they wish to show (e.g., _Owns a Pudgy Penguin NFT_), then mint a badge NFT that our Chrome extension displays beside their tweets.  
 The result: fewer larps, richer identity.
@@ -11,7 +13,6 @@ The result: fewer larps, richer identity.
 ## ✨ Why Now?
 
 - Nearly every Web3 user signs messages with their wallet daily, yet social timelines still show anonymous @handles with no on-chain context.  
-- Hackathon theme: **on-chain reputation & identity**. ETHGlobal Prague (May 30 – June 1 2025) spotlights this problem.
 
 ---
 
@@ -35,6 +36,17 @@ The result: fewer larps, richer identity.
 
 ---
 
+## Contracts
+
+All Deployed on [Optimism Sepolia](https://optimism-sepolia.blockscout.com/)
+
+- MockPudgyPenguin: `0x8ab1c3e845D2c96E9e032EEF798cD3bc551F1E8a`
+- PudgyMinterVerifier: `0xe8eE9E5494733074c1b8A8AA32742968386D36D9`
+- PudgyMinterProof: `0xd310D77012d2b6fcF384b62887abE3eFD8B91675`
+- PersonaBadge: `0x8fca86F6b461C5288dE4bAD95F90E25B3A01BB50`
+
+---
+
 ## Project Structure
 
 ```text
@@ -51,7 +63,7 @@ ethglobal-prague/
 
 ```bash
 git clone https://github.com/wr1159/ethglobal-prague.git
-cd frontend&& pnpm i
+cd frontend && pnpm i
 ```
 
 2. Create .env
