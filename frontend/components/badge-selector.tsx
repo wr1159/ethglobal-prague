@@ -73,7 +73,7 @@ const AVAILABLE_BADGES: BadgeRequirement[] = [
     id: "has-eth",
     emoji: "🥶",
     title: "Has ETH",
-    description: "Has ETH",
+    description: "Holds 0+ ETH",
     checkEligibility: (summary) => {
       const ethBalance = parseFloat(
         summary?.netWorth?.breakdown?.nativeToken?.balance || "0"
@@ -117,24 +117,20 @@ export function BadgeSelector() {
   const walletAddress = user?.wallet?.address;
   const twitterUsername = user?.twitter?.username;
 
-  useEffect(() => {
-    if (walletAddress && twitterUsername) {
-      checkBadgeEligibility();
-      loadObtainedBadges();
-    }
-  }, [walletAddress, twitterUsername]);
-
   const checkBadgeEligibility = async () => {
     if (!walletAddress) return;
 
     setAnalyzing(true);
     try {
       const summary = await getAddressSummary(walletAddress);
+      const obtainedBadgeDescriptions = await loadObtainedBadges();
 
       const eligibilityResults = AVAILABLE_BADGES.map((badge) => ({
         badge,
         eligible: badge.checkEligibility(summary),
-        obtained: false, // Will be updated by loadObtainedBadges
+        obtained:
+          obtainedBadgeDescriptions?.has(`${badge.emoji} ${badge.title}`) ||
+          false,
       }));
 
       setBadgeEligibility(eligibilityResults);
@@ -171,11 +167,18 @@ export function BadgeSelector() {
           ),
         }))
       );
+      return obtainedBadgeDescriptions;
     } catch (error) {
       console.error("Error loading obtained badges:", error);
     }
   };
 
+  useEffect(() => {
+    if (walletAddress && twitterUsername) {
+      checkBadgeEligibility();
+      loadObtainedBadges();
+    }
+  }, [walletAddress, twitterUsername]);
   const toggleBadgeSelection = (badgeId: string) => {
     setSelectedBadges((prev) => {
       const newSet = new Set(prev);
