@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "Twitter Badge Extension",
+  "name": "Persona X Badge Extension",
   "version": "1.0",
-  "description": "Adds badges to linked Twitter accounts",
+  "description": "Adds badges to linked X accounts provided by Persona",
   "permissions": [
     "scripting",
     "activeTab"
