@@ -73,7 +73,7 @@ const AVAILABLE_BADGES: BadgeRequirement[] = [
     id: "has-eth",
     emoji: "🥶",
     title: "Has ETH",
-    description: "Holds 0+ ETH",
+    description: "Holds >0 ETH",
     checkEligibility: (summary) => {
       const ethBalance = parseFloat(
         summary?.netWorth?.breakdown?.nativeToken?.balance || "0"
@@ -176,7 +176,6 @@ export function BadgeSelector() {
   useEffect(() => {
     if (walletAddress && twitterUsername) {
       checkBadgeEligibility();
-      loadObtainedBadges();
     }
   }, [walletAddress, twitterUsername]);
   const toggleBadgeSelection = (badgeId: string) => {
