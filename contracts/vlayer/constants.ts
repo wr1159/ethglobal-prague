@@ -17,11 +17,11 @@ export const chainToTimeTravelConfig: Record<string, TimeTravelConfig> = {
     },
   },
   optimismSepolia: {
-    tokenOwner: "0x5fd84259d66Cd46123540766Be93DFE6D43130D7",
-    usdcTokenAddr: "0x5fd84259d66Cd46123540766Be93DFE6D43130D7",
+    tokenOwner: "0x1e527408BFC6Fcaf91a7Fb0c80D11F57E8f171Cb",
+    usdcTokenAddr: "0x4200000000000000000000000000000000000006",
     prover: {
-      endBlock: "latest",
-      travelRange: BigInt(10),
+      startBlock: BigInt(28450964),
+      endBlock: BigInt(28450984),
       step: BigInt(2),
     },
   },
@@ -41,7 +41,7 @@ export const getTimeTravelConfig = (chainName: string): TimeTravelConfig => {
     chainToTimeTravelConfig[chainName];
   if (!config) {
     throw new Error(
-      `The "${chainName}" chain is not yet configured in this example.`,
+      `The "${chainName}" chain is not yet configured in this example.`
     );
   }
   return config;
