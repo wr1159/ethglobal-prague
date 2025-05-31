@@ -1,0 +1,30 @@
+{
+  "manifest_version": 3,
+  "name": "Twitter Badge Extension",
+  "version": "1.0",
+  "description": "Adds badges to linked Twitter accounts",
+  "permissions": [
+    "scripting",
+    "activeTab"
+  ],
+  "host_permissions": [
+    "*://twitter.com/*"
+  ],
+  "action": {
+    "default_title": "Twitter Badges"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "*://twitter.com/*"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ]
+}
