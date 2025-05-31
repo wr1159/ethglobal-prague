@@ -4,7 +4,7 @@ import { Button } from "./ui/button";
 import { usePrivy } from "@privy-io/react-auth";
 
 export function Navbar() {
-  const { ready, authenticated, logout, login } = usePrivy();
+  const { ready, authenticated, logout } = usePrivy();
   return (
     <nav className="w-full flex justify-center border-b border-b-foreground/10 h-16">
       <div className="w-full flex justify-between items-center p-3 px-4 sm:px-20 text-sm">
@@ -17,14 +17,14 @@ export function Navbar() {
               <Link href={"/dashboard"}>Visit your Dashboard</Link>
             </Button>
           )}
-          {ready && !authenticated ? (
-            <Button onClick={login} size={"lg"}>
-              Log in
-            </Button>
-          ) : (
+          {ready && authenticated ? (
             <Button onClick={logout} variant="outline">
               Logout
             </Button>
+          ) : (
+            <Link href={"/login"}>
+              <Button size={"lg"}>Try Now</Button>
+            </Link>
           )}
         </div>
       </div>
