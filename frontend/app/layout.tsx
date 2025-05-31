@@ -12,7 +12,21 @@ const defaultUrl = process.env.VERCEL_URL
 export const metadata: Metadata = {
   metadataBase: new URL(defaultUrl),
   title: "Persona",
-  description: "Persona - Your digital identity on the blockchain",
+  description: "Persona - Ready to show your True Identity?",
+  openGraph: {
+    title: "Persona",
+    description: "Persona - Ready to show your True Identity?",
+    url: defaultUrl,
+    siteName: "Persona",
+    images: [
+      {
+        url: `og.png`,
+        width: 1200,
+        height: 630,
+        alt: "Persona",
+      },
+    ],
+  },
 };
 
 const oxanium = Oxanium({
