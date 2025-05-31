@@ -13,7 +13,7 @@ import {
 //   exampleGetTopHoldings,
 // } from "@/lib/blockscout-example";
 
-export default async function Home() {
+export default function Home() {
   //   console.log("topHoldings", await exampleGetTopHoldings());
   //   console.log("nftHoldings", await exampleGetNFTs());
   //   console.log("netWorth", await exampleGetNetWorth());
