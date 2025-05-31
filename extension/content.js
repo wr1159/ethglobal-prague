@@ -85,54 +85,42 @@
       line-height: 1;
     `;
 
-    const badge = document.createElement("span");
-    badge.textContent = linkedAccounts[username].badge;
-    badge.style.cssText = `
-      color: ${linkedAccounts[username].color};
-      font-size: 13px;
-      font-weight: 500;
-      background: rgba(0, 0, 0, 0.05);
-      padding: 2px 8px;
-      border-radius: 12px;
-      white-space: nowrap;
-      display: inline-flex;
-      align-items: center;
-      border: 1px solid ${linkedAccounts[username].color}20;
-      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-      position: relative;
-      z-index: 2147483647;
-      flex-shrink: 0;
-      line-height: 1;
-      cursor: pointer;
-    `;
-    badge.className = "linked-account-badge";
+    // Create a clickable badge link
+    const badgeLink = document.createElement('a');
+    badgeLink.href = 'https://persona-prague.vercel.app/';
+    badgeLink.target = '_blank';
+    badgeLink.rel = 'noopener noreferrer';
+    badgeLink.style.textDecoration = 'none';
+    badgeLink.style.display = 'inline-flex';
+    badgeLink.style.alignItems = 'center';
+    badgeLink.style.cursor = 'pointer';
 
-    // Prevent Twitter's default hover card from appearing when hovering the badge
-    [
-      'mouseenter', 'mouseover', 'mousemove', 'mousedown', 'mouseup', 'click', 'pointerenter', 'pointerover', 'pointermove', 'pointerdown', 'pointerup', 'contextmenu'
-    ].forEach(evt => {
-      badge.addEventListener(evt, function(e) {
-        e.stopPropagation();
-        // For click/contextmenu, also prevent default
-        if (evt === 'click' || evt === 'contextmenu') e.preventDefault();
-      });
-    });
+    // Use the 🎭 emoji for the badge
+    badgeLink.textContent = '🎭';
+    badgeLink.className = "linked-account-badge";
+    badgeLink.style.border = '1.5px solid #888';
+    badgeLink.style.borderRadius = '12px';
+    badgeLink.style.background = 'rgba(0,0,0,0.05)';
+    badgeLink.style.padding = '4px 12px';
+    badgeLink.style.fontSize = '15px';
+    badgeLink.style.margin = '0 2px';
+    badgeLink.style.boxShadow = '0 1px 4px rgba(0,0,0,0.07)';
 
-    // Custom card logic
-    badge.addEventListener('mouseenter', function (e) {
-      showCustomCard(badge, username);
+    // Show custom card on hover
+    badgeLink.addEventListener('mouseenter', function (e) {
+      showCustomCard(badgeLink, username);
     });
-    badge.addEventListener('mouseleave', function (e) {
+    badgeLink.addEventListener('mouseleave', function (e) {
       hideCustomCard();
     });
-    badge.addEventListener('touchstart', function (e) {
-      showCustomCard(badge, username);
+    badgeLink.addEventListener('touchstart', function (e) {
+      showCustomCard(badgeLink, username);
     });
-    badge.addEventListener('touchend', function (e) {
+    badgeLink.addEventListener('touchend', function (e) {
       hideCustomCard();
     });
 
-    badgeWrapper.appendChild(badge);
+    badgeWrapper.appendChild(badgeLink);
 
     const parent = element.parentElement;
     if (parent && (parent.style.display === 'inline' || getComputedStyle(parent).display === 'inline')) {

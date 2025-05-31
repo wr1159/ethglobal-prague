@@ -10,6 +10,8 @@
   "host_permissions": [
     "*://x.com/*"
   ],
+
+  
   "action": {
     "default_title": "Twitter Badges"
   },
@@ -25,6 +27,12 @@
         "content.js"
       ],
       "run_at": "document_idle"
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["venetian-mask.svg"],
+      "matches": ["<all_urls>"]
     }
   ]
 }
