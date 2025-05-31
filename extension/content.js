@@ -5,7 +5,7 @@
       color: "#1DA1F2"
     },
     jack: {
-      badge: "👨‍💻 Linked to Block",
+      badge: "👨‍💻",
       color: "#000000"
     }
   };
@@ -66,13 +66,15 @@
 
     const badgeWrapper = document.createElement("span");
     badgeWrapper.style.cssText = `
-      display: inline-flex;
+      display: flex;
       align-items: center;
-      margin-left: 6px;
-      vertical-align: middle;
+      margin-left: 0px;
+      vertical-align: bottom;
       position: relative;
-      z-index: 9999;
+      z-index: 1;
       flex-shrink: 0;
+      font-size: 0.85em;
+      line-height: 1;
     `;
 
     const badge = document.createElement("span");
@@ -92,7 +94,7 @@
       position: relative;
       z-index: 9999;
       flex-shrink: 0;
-      line-height: 1.2;
+      line-height: 1;
     `;
     badge.className = "linked-account-badge";
 
@@ -109,6 +111,15 @@
       parent.insertBefore(badgeWrapper, element.nextSibling);
     } else {
       parent.appendChild(badgeWrapper);
+    }
+
+    let grandparent = parent && parent.parentElement;
+    console.log(grandparent);
+    let greatgrandparent = grandparent && grandparent.parentElement;
+    console.log(greatgrandparent);
+    if (greatgrandparent && greatgrandparent.getAttribute('data-testid') === 'User-Name') {
+      greatgrandparent.style.alignItems = 'start';
+      greatgrandparent.classList.remove('r-1awozwy');
     }
   }
 
