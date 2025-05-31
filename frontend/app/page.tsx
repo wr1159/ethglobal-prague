@@ -7,8 +7,18 @@ import { ConnectSupabaseSteps } from "@/components/tutorial/connect-supabase-ste
 import { SignUpUserSteps } from "@/components/tutorial/sign-up-user-steps";
 import { hasEnvVars } from "@/lib/utils";
 import Link from "next/link";
+import {
+  exampleGetAddressSummary,
+  exampleGetNetWorth,
+  exampleGetNFTs,
+  exampleGetTopHoldings,
+} from "@/lib/blockscout-example";
 
-export default function Home() {
+export default async function Home() {
+  console.log("topHoldings", await exampleGetTopHoldings());
+  console.log("nftHoldings", await exampleGetNFTs());
+  console.log("netWorth", await exampleGetNetWorth());
+  console.log("addressSummary", await exampleGetAddressSummary());
   return (
     <main className="min-h-screen flex flex-col items-center">
       <div className="flex-1 w-full flex flex-col gap-20 items-center">
