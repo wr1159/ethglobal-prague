@@ -2,7 +2,6 @@
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { usePrivy } from "@privy-io/react-auth";
-import Head from "next/head";
 import { Button } from "@/components/ui/button";
 
 export default function DashboardPage() {
@@ -11,7 +10,6 @@ export default function DashboardPage() {
     ready,
     authenticated,
     user,
-    logout,
     linkWallet,
     unlinkWallet,
     linkTwitter,
@@ -20,7 +18,7 @@ export default function DashboardPage() {
 
   useEffect(() => {
     if (ready && !authenticated) {
-      router.push("/");
+      router.push("/login");
     }
   }, [ready, authenticated, router]);
 
@@ -33,20 +31,10 @@ export default function DashboardPage() {
 
   return (
     <>
-      <Head>
-        <title>Privy Auth Demo</title>
-      </Head>
-
-      <main className="flex flex-col min-h-screen px-4 sm:px-20 py-6 sm:py-10 bg-privy-light-blue">
+      <main className="flex flex-col min-h-screen px-4 sm:px-20 py-6 bg-privy-light-blue">
         {ready && authenticated ? (
           <>
-            <div className="flex flex-row justify-between">
-              <h1 className="text-2xl font-semibold">Privy Auth Demo</h1>
-              <Button onClick={logout} variant="outline">
-                Logout
-              </Button>
-            </div>
-            <div className="mt-12 flex gap-4 flex-wrap">
+            <div className="flex gap-4 flex-wrap">
               {twitterSubject ? (
                 <Button
                   onClick={() => {
