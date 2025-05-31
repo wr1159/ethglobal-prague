@@ -9,8 +9,10 @@ import { getAddressSummary } from "@/lib/blockscout";
 import { createClient } from "@/lib/supabase/client";
 import { toast } from "sonner";
 import { useWriteContract } from "wagmi";
-import { erc721Abi } from "@/src/generated";
-import { personaBadgeAddress } from "@/lib/config";
+import { erc721Abi, pudgyMinterVerifierAbi } from "@/src/generated";
+import { personaBadgeAddress, PudgyMinterVerifierAddress } from "@/lib/config";
+import { useProver } from "@/lib/useProver";
+import { useLocalStorage } from "usehooks-ts";
 
 interface AddressSummary {
   netWorth: {
@@ -86,17 +88,12 @@ const AVAILABLE_BADGES: BadgeRequirement[] = [
     },
   },
   {
-    id: "defi-pioneer",
-    emoji: "🦄",
-    title: "DeFi Pioneer",
-    description: "Significant UNI holdings",
-    checkEligibility: (summary) => {
-      const uniHolding = summary?.topHoldings?.find(
-        (holding) => holding.token.symbol.toUpperCase() === "UNI"
-      );
-      return Boolean(
-        uniHolding && parseFloat(uniHolding.balanceFormatted) >= 100
-      );
+    id: "pudgy-minter",
+    emoji: "🐧",
+    title: "OG Pudgy Minter",
+    description: "Minted a Pudgy",
+    checkEligibility: () => {
+      return false;
     },
   },
 ];
@@ -116,6 +113,8 @@ export function BadgeSelector() {
   );
   const [selectedBadges, setSelectedBadges] = useState<Set<string>>(new Set());
   const [obtainingBadges, setObtainingBadges] = useState(false);
+  const [proverResult] = useLocalStorage("proverResult", "");
+  const { callProver, result } = useProver();
 
   const { writeContract } = useWriteContract();
 
@@ -182,7 +181,38 @@ export function BadgeSelector() {
     if (walletAddress && twitterUsername) {
       checkBadgeEligibility();
     }
+    const checkPudgyMinter = async () => {
+      await callProver([walletAddress as `0x${string}`]);
+    };
+    checkPudgyMinter();
   }, [walletAddress, twitterUsername]);
+
+  useEffect(() => {
+    const checkPudgyMinter = async () => {
+      await callProver([walletAddress as `0x${string}`]);
+    };
+    checkPudgyMinter();
+  }, [walletAddress]);
+  useEffect(() => {
+    if (result) {
+      console.log("result", result);
+      //   Change PudgyPenguin Eligibilty to true if result is true
+      setBadgeEligibility((prev) =>
+        prev.map((item) => ({
+          ...item,
+          eligible: item.badge.id === "pudgy-minter" ? true : item.eligible,
+        }))
+      );
+    }
+    // callProver([walletAddress as `0x${string}`]);
+    // checkPudgyMinter();
+    if (result && walletAddress) {
+      console.log("can call prover");
+      console.log(callProver);
+      //   callProver([walletAddress as `0x${string}`]);
+    }
+  }, [result, walletAddress]);
+
   const toggleBadgeSelection = (badgeId: string) => {
     setSelectedBadges((prev) => {
       const newSet = new Set(prev);
@@ -201,12 +231,32 @@ export function BadgeSelector() {
     setObtainingBadges(true);
     try {
       const randomId = Math.floor(Math.random() * 10000);
-      await writeContract({
-        address: personaBadgeAddress,
-        abi: erc721Abi,
-        functionName: "mint",
-        args: [walletAddress as `0x${string}`, BigInt(randomId)],
-      });
+      if (selectedBadges.has("pudgy-minter") && proverResult) {
+        console.log("minting pudgy minter");
+        console.log("proverResult", proverResult);
+        const [proof, owner, balance] = JSON.parse(proverResult as string) as [
+          unknown,
+          `0x${string}`,
+          string,
+        ];
+        console.log("proof", proof);
+        console.log("owner", owner);
+        console.log("balance", balance);
+        await writeContract({
+          address: PudgyMinterVerifierAddress,
+          abi: pudgyMinterVerifierAbi,
+          functionName: "claim",
+          //@ts-expect-error proof is unknown
+          args: [proof, owner, BigInt(balance)],
+        });
+      } else {
+        await writeContract({
+          address: personaBadgeAddress,
+          abi: erc721Abi,
+          functionName: "mint",
+          args: [walletAddress as `0x${string}`, BigInt(randomId)],
+        });
+      }
       const supabase = createClient();
       const badgesToInsert = Array.from(selectedBadges)
         .map((badgeId) => {

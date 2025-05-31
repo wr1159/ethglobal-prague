@@ -2913,6 +2913,248 @@ export const mathAbi = [
 ] as const;
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// OGMinterBadgeNFT
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+export const ogMinterBadgeNftAbi = [
+  { type: "constructor", inputs: [], stateMutability: "nonpayable" },
+  {
+    type: "function",
+    inputs: [
+      { name: "to", internalType: "address", type: "address" },
+      { name: "tokenId", internalType: "uint256", type: "uint256" },
+    ],
+    name: "approve",
+    outputs: [],
+    stateMutability: "nonpayable",
+  },
+  {
+    type: "function",
+    inputs: [{ name: "owner", internalType: "address", type: "address" }],
+    name: "balanceOf",
+    outputs: [{ name: "", internalType: "uint256", type: "uint256" }],
+    stateMutability: "view",
+  },
+  {
+    type: "function",
+    inputs: [],
+    name: "currentTokenId",
+    outputs: [{ name: "", internalType: "uint256", type: "uint256" }],
+    stateMutability: "view",
+  },
+  {
+    type: "function",
+    inputs: [{ name: "tokenId", internalType: "uint256", type: "uint256" }],
+    name: "getApproved",
+    outputs: [{ name: "", internalType: "address", type: "address" }],
+    stateMutability: "view",
+  },
+  {
+    type: "function",
+    inputs: [
+      { name: "owner", internalType: "address", type: "address" },
+      { name: "operator", internalType: "address", type: "address" },
+    ],
+    name: "isApprovedForAll",
+    outputs: [{ name: "", internalType: "bool", type: "bool" }],
+    stateMutability: "view",
+  },
+  {
+    type: "function",
+    inputs: [{ name: "to", internalType: "address", type: "address" }],
+    name: "mint",
+    outputs: [],
+    stateMutability: "nonpayable",
+  },
+  {
+    type: "function",
+    inputs: [],
+    name: "name",
+    outputs: [{ name: "", internalType: "string", type: "string" }],
+    stateMutability: "view",
+  },
+  {
+    type: "function",
+    inputs: [{ name: "tokenId", internalType: "uint256", type: "uint256" }],
+    name: "ownerOf",
+    outputs: [{ name: "", internalType: "address", type: "address" }],
+    stateMutability: "view",
+  },
+  {
+    type: "function",
+    inputs: [
+      { name: "from", internalType: "address", type: "address" },
+      { name: "to", internalType: "address", type: "address" },
+      { name: "tokenId", internalType: "uint256", type: "uint256" },
+    ],
+    name: "safeTransferFrom",
+    outputs: [],
+    stateMutability: "nonpayable",
+  },
+  {
+    type: "function",
+    inputs: [
+      { name: "from", internalType: "address", type: "address" },
+      { name: "to", internalType: "address", type: "address" },
+      { name: "tokenId", internalType: "uint256", type: "uint256" },
+      { name: "data", internalType: "bytes", type: "bytes" },
+    ],
+    name: "safeTransferFrom",
+    outputs: [],
+    stateMutability: "nonpayable",
+  },
+  {
+    type: "function",
+    inputs: [
+      { name: "operator", internalType: "address", type: "address" },
+      { name: "approved", internalType: "bool", type: "bool" },
+    ],
+    name: "setApprovalForAll",
+    outputs: [],
+    stateMutability: "nonpayable",
+  },
+  {
+    type: "function",
+    inputs: [{ name: "interfaceId", internalType: "bytes4", type: "bytes4" }],
+    name: "supportsInterface",
+    outputs: [{ name: "", internalType: "bool", type: "bool" }],
+    stateMutability: "view",
+  },
+  {
+    type: "function",
+    inputs: [],
+    name: "symbol",
+    outputs: [{ name: "", internalType: "string", type: "string" }],
+    stateMutability: "view",
+  },
+  {
+    type: "function",
+    inputs: [{ name: "tokenId", internalType: "uint256", type: "uint256" }],
+    name: "tokenURI",
+    outputs: [{ name: "", internalType: "string", type: "string" }],
+    stateMutability: "view",
+  },
+  {
+    type: "function",
+    inputs: [
+      { name: "from", internalType: "address", type: "address" },
+      { name: "to", internalType: "address", type: "address" },
+      { name: "tokenId", internalType: "uint256", type: "uint256" },
+    ],
+    name: "transferFrom",
+    outputs: [],
+    stateMutability: "nonpayable",
+  },
+  {
+    type: "event",
+    anonymous: false,
+    inputs: [
+      {
+        name: "owner",
+        internalType: "address",
+        type: "address",
+        indexed: true,
+      },
+      {
+        name: "approved",
+        internalType: "address",
+        type: "address",
+        indexed: true,
+      },
+      {
+        name: "tokenId",
+        internalType: "uint256",
+        type: "uint256",
+        indexed: true,
+      },
+    ],
+    name: "Approval",
+  },
+  {
+    type: "event",
+    anonymous: false,
+    inputs: [
+      {
+        name: "owner",
+        internalType: "address",
+        type: "address",
+        indexed: true,
+      },
+      {
+        name: "operator",
+        internalType: "address",
+        type: "address",
+        indexed: true,
+      },
+      { name: "approved", internalType: "bool", type: "bool", indexed: false },
+    ],
+    name: "ApprovalForAll",
+  },
+  {
+    type: "event",
+    anonymous: false,
+    inputs: [
+      { name: "from", internalType: "address", type: "address", indexed: true },
+      { name: "to", internalType: "address", type: "address", indexed: true },
+      {
+        name: "tokenId",
+        internalType: "uint256",
+        type: "uint256",
+        indexed: true,
+      },
+    ],
+    name: "Transfer",
+  },
+  {
+    type: "error",
+    inputs: [
+      { name: "sender", internalType: "address", type: "address" },
+      { name: "tokenId", internalType: "uint256", type: "uint256" },
+      { name: "owner", internalType: "address", type: "address" },
+    ],
+    name: "ERC721IncorrectOwner",
+  },
+  {
+    type: "error",
+    inputs: [
+      { name: "operator", internalType: "address", type: "address" },
+      { name: "tokenId", internalType: "uint256", type: "uint256" },
+    ],
+    name: "ERC721InsufficientApproval",
+  },
+  {
+    type: "error",
+    inputs: [{ name: "approver", internalType: "address", type: "address" }],
+    name: "ERC721InvalidApprover",
+  },
+  {
+    type: "error",
+    inputs: [{ name: "operator", internalType: "address", type: "address" }],
+    name: "ERC721InvalidOperator",
+  },
+  {
+    type: "error",
+    inputs: [{ name: "owner", internalType: "address", type: "address" }],
+    name: "ERC721InvalidOwner",
+  },
+  {
+    type: "error",
+    inputs: [{ name: "receiver", internalType: "address", type: "address" }],
+    name: "ERC721InvalidReceiver",
+  },
+  {
+    type: "error",
+    inputs: [{ name: "sender", internalType: "address", type: "address" }],
+    name: "ERC721InvalidSender",
+  },
+  {
+    type: "error",
+    inputs: [{ name: "tokenId", internalType: "uint256", type: "uint256" }],
+    name: "ERC721NonexistentToken",
+  },
+] as const;
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Precompiles
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -3341,6 +3583,319 @@ export const proverAbi = [
     outputs: [],
     stateMutability: "nonpayable",
   },
+] as const;
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// PudgyMinter
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+export const pudgyMinterAbi = [
+  {
+    type: "constructor",
+    inputs: [
+      { name: "_token", internalType: "contract IERC721", type: "address" },
+      { name: "_startBlockNo", internalType: "uint256", type: "uint256" },
+      { name: "_endingBlockNo", internalType: "uint256", type: "uint256" },
+      { name: "_step", internalType: "uint256", type: "uint256" },
+    ],
+    stateMutability: "nonpayable",
+  },
+  {
+    type: "function",
+    inputs: [],
+    name: "ENDING_BLOCK",
+    outputs: [{ name: "", internalType: "uint256", type: "uint256" }],
+    stateMutability: "view",
+  },
+  {
+    type: "function",
+    inputs: [],
+    name: "STARTING_BLOCK",
+    outputs: [{ name: "", internalType: "uint256", type: "uint256" }],
+    stateMutability: "view",
+  },
+  {
+    type: "function",
+    inputs: [],
+    name: "STEP",
+    outputs: [{ name: "", internalType: "uint256", type: "uint256" }],
+    stateMutability: "view",
+  },
+  {
+    type: "function",
+    inputs: [],
+    name: "TOKEN",
+    outputs: [{ name: "", internalType: "contract IERC721", type: "address" }],
+    stateMutability: "view",
+  },
+  {
+    type: "function",
+    inputs: [{ name: "_owner", internalType: "address", type: "address" }],
+    name: "maxBalanceOf",
+    outputs: [
+      {
+        name: "",
+        internalType: "struct Proof",
+        type: "tuple",
+        components: [
+          {
+            name: "seal",
+            internalType: "struct Seal",
+            type: "tuple",
+            components: [
+              {
+                name: "verifierSelector",
+                internalType: "bytes4",
+                type: "bytes4",
+              },
+              { name: "seal", internalType: "bytes32[8]", type: "bytes32[8]" },
+              { name: "mode", internalType: "enum ProofMode", type: "uint8" },
+            ],
+          },
+          { name: "callGuestId", internalType: "bytes32", type: "bytes32" },
+          { name: "length", internalType: "uint256", type: "uint256" },
+          {
+            name: "callAssumptions",
+            internalType: "struct CallAssumptions",
+            type: "tuple",
+            components: [
+              {
+                name: "proverContractAddress",
+                internalType: "address",
+                type: "address",
+              },
+              {
+                name: "functionSelector",
+                internalType: "bytes4",
+                type: "bytes4",
+              },
+              {
+                name: "settleChainId",
+                internalType: "uint256",
+                type: "uint256",
+              },
+              {
+                name: "settleBlockNumber",
+                internalType: "uint256",
+                type: "uint256",
+              },
+              {
+                name: "settleBlockHash",
+                internalType: "bytes32",
+                type: "bytes32",
+              },
+            ],
+          },
+        ],
+      },
+      { name: "", internalType: "address", type: "address" },
+      { name: "", internalType: "uint256", type: "uint256" },
+    ],
+    stateMutability: "nonpayable",
+  },
+  {
+    type: "function",
+    inputs: [],
+    name: "proof",
+    outputs: [
+      {
+        name: "",
+        internalType: "struct Proof",
+        type: "tuple",
+        components: [
+          {
+            name: "seal",
+            internalType: "struct Seal",
+            type: "tuple",
+            components: [
+              {
+                name: "verifierSelector",
+                internalType: "bytes4",
+                type: "bytes4",
+              },
+              { name: "seal", internalType: "bytes32[8]", type: "bytes32[8]" },
+              { name: "mode", internalType: "enum ProofMode", type: "uint8" },
+            ],
+          },
+          { name: "callGuestId", internalType: "bytes32", type: "bytes32" },
+          { name: "length", internalType: "uint256", type: "uint256" },
+          {
+            name: "callAssumptions",
+            internalType: "struct CallAssumptions",
+            type: "tuple",
+            components: [
+              {
+                name: "proverContractAddress",
+                internalType: "address",
+                type: "address",
+              },
+              {
+                name: "functionSelector",
+                internalType: "bytes4",
+                type: "bytes4",
+              },
+              {
+                name: "settleChainId",
+                internalType: "uint256",
+                type: "uint256",
+              },
+              {
+                name: "settleBlockNumber",
+                internalType: "uint256",
+                type: "uint256",
+              },
+              {
+                name: "settleBlockHash",
+                internalType: "bytes32",
+                type: "bytes32",
+              },
+            ],
+          },
+        ],
+      },
+    ],
+    stateMutability: "pure",
+  },
+  {
+    type: "function",
+    inputs: [{ name: "blockNo", internalType: "uint256", type: "uint256" }],
+    name: "setBlock",
+    outputs: [],
+    stateMutability: "nonpayable",
+  },
+  {
+    type: "function",
+    inputs: [
+      { name: "chainId", internalType: "uint256", type: "uint256" },
+      { name: "blockNo", internalType: "uint256", type: "uint256" },
+    ],
+    name: "setChain",
+    outputs: [],
+    stateMutability: "nonpayable",
+  },
+] as const;
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// PudgyMinterVerifier
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+export const pudgyMinterVerifierAbi = [
+  {
+    type: "constructor",
+    inputs: [{ name: "_prover", internalType: "address", type: "address" }],
+    stateMutability: "nonpayable",
+  },
+  {
+    type: "function",
+    inputs: [
+      {
+        name: "newVerifier",
+        internalType: "contract IProofVerifier",
+        type: "address",
+      },
+    ],
+    name: "_setTestVerifier",
+    outputs: [],
+    stateMutability: "nonpayable",
+  },
+  {
+    type: "function",
+    inputs: [
+      {
+        name: "",
+        internalType: "struct Proof",
+        type: "tuple",
+        components: [
+          {
+            name: "seal",
+            internalType: "struct Seal",
+            type: "tuple",
+            components: [
+              {
+                name: "verifierSelector",
+                internalType: "bytes4",
+                type: "bytes4",
+              },
+              { name: "seal", internalType: "bytes32[8]", type: "bytes32[8]" },
+              { name: "mode", internalType: "enum ProofMode", type: "uint8" },
+            ],
+          },
+          { name: "callGuestId", internalType: "bytes32", type: "bytes32" },
+          { name: "length", internalType: "uint256", type: "uint256" },
+          {
+            name: "callAssumptions",
+            internalType: "struct CallAssumptions",
+            type: "tuple",
+            components: [
+              {
+                name: "proverContractAddress",
+                internalType: "address",
+                type: "address",
+              },
+              {
+                name: "functionSelector",
+                internalType: "bytes4",
+                type: "bytes4",
+              },
+              {
+                name: "settleChainId",
+                internalType: "uint256",
+                type: "uint256",
+              },
+              {
+                name: "settleBlockNumber",
+                internalType: "uint256",
+                type: "uint256",
+              },
+              {
+                name: "settleBlockHash",
+                internalType: "bytes32",
+                type: "bytes32",
+              },
+            ],
+          },
+        ],
+      },
+      { name: "claimer", internalType: "address", type: "address" },
+      { name: "maxBalance", internalType: "uint256", type: "uint256" },
+    ],
+    name: "claim",
+    outputs: [],
+    stateMutability: "nonpayable",
+  },
+  {
+    type: "function",
+    inputs: [{ name: "", internalType: "address", type: "address" }],
+    name: "claimed",
+    outputs: [{ name: "", internalType: "bool", type: "bool" }],
+    stateMutability: "view",
+  },
+  {
+    type: "function",
+    inputs: [],
+    name: "prover",
+    outputs: [{ name: "", internalType: "address", type: "address" }],
+    stateMutability: "view",
+  },
+  {
+    type: "function",
+    inputs: [],
+    name: "reward",
+    outputs: [
+      { name: "", internalType: "contract OGMinterBadgeNFT", type: "address" },
+    ],
+    stateMutability: "view",
+  },
+  {
+    type: "function",
+    inputs: [],
+    name: "verifier",
+    outputs: [
+      { name: "", internalType: "contract IProofVerifier", type: "address" },
+    ],
+    stateMutability: "view",
+  },
+  { type: "error", inputs: [], name: "InvalidChainId" },
 ] as const;
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
