@@ -42,7 +42,7 @@ const badges: Badge[] = [
     emoji: "🐧",
     title: "OG Pudgy Minter",
     description: "Minted a Pudgy",
-    requirement: "VERIFIED VIA BLOCKSCOUT",
+    requirement: "VERIFIED VIA vlayer",
   },
 ];
 

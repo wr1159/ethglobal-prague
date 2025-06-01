@@ -19,7 +19,7 @@ const techStack: TechStackItem[] = [
   },
   {
     emoji: "⚡",
-    name: "Vlayer",
+    name: "vlayer",
     description: "TimeTravel proof verification",
   },
   {

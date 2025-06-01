@@ -2,7 +2,7 @@
 
 _An ETHGlobal Prague 2025 hackathon project_
 
-Applied Prizes: Blockscout (Use of API), Vlayer (Time Travel) and Finalist
+Applied Prizes: Blockscout (Use of API), vlayer (Time Travel) and Finalist
 
 Persona lets anyone **prove on Twitter their on-chain activity**.  
 Users link a wallet and Twitter account once, pick which on-chain facts they wish to show (e.g., _Owns a Pudgy Penguin NFT_), then mint a badge NFT that our Chrome extension displays beside their tweets.  
@@ -29,8 +29,8 @@ The result: fewer larps, richer identity.
 |-------|---------|------|
 | **Auth & Linking** | **Privy** | Securely link Twitter ↔ wallet in-browser; progressive onboarding.  |
 | **On-chain Data** | **Blockscout** | Fetch holdings / balances & stats via public REST API. |
-| **Database** | **Supabase** (Postgres + RLS) | Stores user profile + selected badges; row-level security restricts writes to the owner’s wallet.  |
-| **Badge NFT** | **Vlayer TimeTravel** | verifier contract to mint proof-of-holding NFTs.  |
+| **Indexer Database** | **Supabase** (Postgres + RLS) | Stores user profile + selected badges; row-level security restricts writes to the owner’s wallet.  |
+| **Badge NFT** | **vlayer TimeTravel + ERC721** | verifier contract to mint proof-of-holding NFTs.  |
 | **Front-end** | **Next.js App Router** | Single webapp for connecting accounts & choosing badges (no FastAPI layer). |
 | **Browser Extension** | **Vanilla JS** | Reads Supabase via REST, injects avatar & badge icons into Twitter DOM. |
 
