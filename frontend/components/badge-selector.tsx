@@ -8,7 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { getAddressSummary } from "@/lib/blockscout";
 import { createClient } from "@/lib/supabase/client";
 import { toast } from "sonner";
-import { useWriteContract } from "wagmi";
+import { useSwitchChain, useWriteContract } from "wagmi";
 import { erc721Abi, pudgyMinterVerifierAbi } from "@/src/generated";
 import { personaBadgeAddress, PudgyMinterVerifierAddress } from "@/lib/config";
 import { useProver } from "@/lib/useProver";
@@ -117,6 +117,7 @@ export function BadgeSelector() {
   const { callProver, result } = useProver();
 
   const { writeContract } = useWriteContract();
+  const { switchChain } = useSwitchChain();
 
   const walletAddress = user?.wallet?.address;
   const twitterUsername = user?.twitter?.username;
@@ -231,6 +232,7 @@ export function BadgeSelector() {
     setObtainingBadges(true);
     try {
       const randomId = Math.floor(Math.random() * 10000);
+      await switchChain({ chainId: 11155420 });
       if (selectedBadges.has("pudgy-minter") && proverResult) {
         console.log("minting pudgy minter");
         console.log("proverResult", proverResult);
@@ -377,7 +379,7 @@ export function BadgeSelector() {
                               Eligible
                             </Badge>
                           )}
-                          {!eligible && (
+                          {!eligible && !obtained && (
                             <Badge variant="outline" className="text-xs">
                               Not Eligible
                             </Badge>
