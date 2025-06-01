@@ -57,6 +57,18 @@ ethglobal-prague/
 └─ README.md           
 ```
 
+## Install Extension
+
+1. Clone Repo
+
+```bash
+git clone https://github.com/wr1159/ethglobal-prague.git
+```
+
+2. Enable Developer Tools in chrome://extensions
+
+3. Load Unpacked and select the extensions folder
+
 ## Set up
 
 1. Clone Repo
